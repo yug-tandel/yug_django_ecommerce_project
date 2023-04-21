@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Buyer Edit Profile</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/static/login_assets/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login_assets/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('/static/login_assets/images/bg-01.jpg');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data" >
+					{% csrf_token %}
+					<span class="login100-form-logo">
+						<img src="{{buyer_data.pic.url}}" style="max-width: 120px; max-height: 120px; min-width: 120px; min-height: 120px;border-radius: 50%;" alt="">
+					</span>
+					
+					<span class="login100-form-title p-b-34 p-t-27">
+						Edit Profile
+					</span>
+					<div>{{msg}}</div><br><br>
+                        <!-- first name -->
+					<div class="wrap-input100 validate-input" data-validate = "Enter First name">
+						<input class="input100" type="text" name="first_name" placeholder="First name" value="{{buyer_data.first_name}}">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+                    <!-- last name -->
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Last name">
+						<input class="input100" type="text" name="last_name" placeholder="Last name" value="{{buyer_data.last_name}}">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+                        <!-- mobile -->
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Mobile Number">
+						<input class="input100" type="number" name="mobile" placeholder="Mobile Number" value="{{buyer_data.mobile}}">
+						<span class="focus-input100" data-placeholder="&#128222;"></span>
+					</div>
+                        <!-- email  -->
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Email">
+                        <input class="input100" type="email" name="email" placeholder="Email" value="{{buyer_data.email}}" disabled>
+                        <span class="focus-input100" data-placeholder="&#x2709;"></span>
+                    </div>
+
+                    <!-- address -->
+                    <div class="wrap-input100" data-validate = "Enter address">
+						<input class="input100" type="text" name="address" placeholder="Address" value="{{buyer_data.address}}">
+						<span class="focus-input100" ></span>
+					</div>
+
+
+                    Currently : {{buyer_data.pic}}
+                    <div class="wrap-input100">
+                        <input class="input100" type="file" name="pic">
+                    </div>
+                    
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Save Changes
+						</button>
+					</div>
+
+					<div class="text-center p-t-90">
+						<a class="txt1" href="{% url 'reset_password' %}">
+							<h4>Reset Password</h4>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/login_assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/login_assets/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login_assets/js/main.js"></script>
+
+</body>
+</html>

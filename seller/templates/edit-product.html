@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>edit product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style type="text/css">
+      body {
+        background: #f7f7ff;
+        margin-top: 20px;
+      }
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid transparent;
+        border-radius: 0.25rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%),
+          0 2px 6px 0 rgb(206 206 238 / 54%);
+      }
+      .me-2 {
+        margin-right: 0.5rem !important;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="{% url 'edit_product' product_obj.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{msg}}
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Product Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input type="text" class="form-control" value="{{product_obj.product_name}}" name="product_name" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Product Description</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{product_obj.des}}"
+                  name="des"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Price</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{product_obj.price}}"
+                  name="price"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Stocks</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{product_obj.product_stock}}"
+                  name="product_stock"
+                />
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Category</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <select name="field" id="">
+                  <option value="none">none</option>
+                  <option value="man">man</option>
+                  <option value="women">women</option>
+                  <option value="bag">bag</option>
+                  <option value="watche">watche</option>
+                  <option value="shoes">shoes</option> 
+                </select>
+              </div>
+            </div>
+
+            
+            
+           
+            
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Product Image</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                Currently : {{product_obj.product_pic.url}}<input
+                  type="file"
+                  class="form-control"
+                  name="product_pic"
+                  accept=".jpg,.png,.jpeg,.webp"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-9 text-secondary">
+                <button class="btn btn-primary px-4">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-sm-9 text-secondary">
+     <a href="{% url 'show_product' %}"> <button class="btn btn-primary px-4">Show Products</button></a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
+  </body>
+</html>
