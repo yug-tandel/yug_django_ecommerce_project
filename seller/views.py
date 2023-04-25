@@ -7,8 +7,8 @@ from django.core.mail import send_mail
 # Create your views here.
 
 def seller_index(request):
-    # try:
-    if(1):
+    try:
+    # if(1):
         seller_obj = Seller.objects.get(email = request.session['seller_email'])
         ordered_products_objs = OrderedProducts.objects.all()
         seller_ordered_products_list = []
@@ -34,8 +34,8 @@ def seller_index(request):
 
 
         return render(request, 'seller-index.html',{'seller_obj':seller_obj,'my_list':my_list,'total_sales':total_sales,'account_balance':account_balance,'total_clients':len(set(buyers))})
-    # except:
-    else:
+    except:
+    # else:
         return render(request, 'seller-login.html',{'msg':'please login to your account'})
     
 
@@ -127,7 +127,7 @@ def seller_login(request):
 
 def seller_logout(request):
     try:
-        request.session['email']
+        request.session['seller_email']
         del request.session['seller_email']
         return redirect('seller_index')
     except:
@@ -276,8 +276,8 @@ def delete_product(request,pk):
 
 
 def ordered_products(request):
-    # try:
-    if(1):
+    try:
+    # if(1):
         seller_obj = Seller.objects.get(email = request.session['seller_email'])
         ordered_products_objs = OrderedProducts.objects.all()
         seller_ordered_products_list = []
@@ -303,6 +303,6 @@ def ordered_products(request):
 
 
         return render(request, 'ordered-products.html',{'seller_obj':seller_obj,'my_list':my_list,'total_sales':total_sales,'account_balance':account_balance,'total_clients':len(set(buyers))})
-    # except:
-    else:
+    except:
+    # else:
         return render(request, 'ordered-products.html',{'msg':'please login to your account'})

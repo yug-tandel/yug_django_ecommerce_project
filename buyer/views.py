@@ -16,8 +16,6 @@ from django.http import HttpResponseBadRequest
 def index(request):
     if request.method == 'POST':
         a = request.POST['num-product']
-        print('ifjasifalisdjfklasdjfkljasdklfjkasdjfkd--------------------------')
-        print(a)
     try:
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         return render(request, 'index.html', {'buyer_data': buyer_obj})
@@ -70,7 +68,6 @@ def blog_detail(request):
 
 def register(request):
     if request.method == 'POST':
-        print(request.POST['email'])
         try:
             buyer_obj = Buyer.objects.get(email=request.POST['email'])
             return render(request, 'register.html', {'msg': 'email already registered'})
@@ -95,7 +92,6 @@ def register(request):
             else:
                 return render(request, 'register.html', {'msg': 'both passwords do not match'})
     else:
-        print(request.POST)
         return render(request, 'register.html')
 
 
@@ -158,7 +154,6 @@ def forgot_password(request):
 
 
 def edit_profile(request):
-    # print(request.session['email'])
     try:
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         if request.method == 'GET':
@@ -208,19 +203,14 @@ def product(request):
     wishlist_products.clear()
     cartlist_products.clear()
     all_product_objs = Product.objects.all()
-    # try:
-    if (1):
+    try:
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         wishlist_objs = Wishlist.objects.filter(buyer=buyer_obj)
         cart_objs = Cart.objects.filter(buyer=buyer_obj)
         wish_len = len(wishlist_objs)
         cart_len = len(cart_objs)
-        print(wish_len)
-        print(cart_len)
         for i in range(0, wish_len+cart_len):
-            print(f'--------------------------------------{i}')
             if i >= wish_len and i >= cart_len:
-                print('finally broke')
                 break
             else:
                 # cart maate
@@ -228,12 +218,10 @@ def product(request):
                     pass
                 else:
                     try:
-                        # if(1):
                         buyer_cart_obj = Cart.objects.filter(
                             buyer=buyer_obj).get(product=cart_objs[i].product)
                         cartlist_products.append(buyer_cart_obj.product)
                     except:
-                        # else:
                         try:
                             cartlist_products.remove(cart_objs[i].product)
                         except:
@@ -244,37 +232,23 @@ def product(request):
                     pass
                 else:
                     try:
-                        # if(1):
-
                         buyer_wishlist_obj = Wishlist.objects.filter(
                             buyer=buyer_obj).get(product=wishlist_objs[i].product)
-                        print('bbbbbbbbbbbbbbbbbbbbbbbbb')
-                        print(buyer_wishlist_obj)
-                        print('bbbbbbbbbbbbbbbbbbbbbbbbb')
                         # Wishlist.objects.
                         wishlist_products.append(buyer_wishlist_obj.product)
-                        print(index(request))
                     except:
-                        # else:
                         try:
-                            # if(1):
                             wishlist_products.remove(wishlist_objs[i].product)
                         except:
-                            # else:
                             pass
-        print(f'cart list ---> {cartlist_products}')
-        print(wishlist_products)
-
         return render(request, 'product.html', {'buyer_data': buyer_obj, 'all_product_objs': all_product_objs,
                                                 'all_product_objs_len': len(all_product_objs), 'cartlist_products': cartlist_products, 'wishlist_products': wishlist_products})
-    # except:
-    else:
+    except:
         return render(request, 'login.html', {'msg': 'please login first', 'all_product_objs': all_product_objs})
 
 
 def my_wishlist(request):
-    # try:
-    if (1):
+    try:
         cart_pro_list = []
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         buyer_wishlist_objs = Wishlist.objects.filter(buyer=buyer_obj)
@@ -285,17 +259,14 @@ def my_wishlist(request):
                 cart_pro_list.append(i.product)
             else:
                 pass
-        print(cart_pro_list)
         return render(request, 'wishlist.html', {'buyer_wishlist_objs': buyer_wishlist_objs, 'buyer_data': buyer_obj, 'cart_pro_list': cart_pro_list})
-    # except:
-    else:
+    except:
         return redirect('login')
 
 
 def add_to_wishlist(request, pk):
     all_product_objs = Product.objects.all()
-    # try:
-    if (1):
+    try:
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         single_pro_obj = Product.objects.get(id=pk)
         try:
@@ -310,8 +281,7 @@ def add_to_wishlist(request, pk):
             )
             wishlist_products.append(single_pro_obj)
             return render(request, 'product.html', {'buyer_obj': buyer_obj, 'all_product_objs': all_product_objs, 'wishlist_products': wishlist_products})
-    # except:
-    else:
+    except:
         return redirect('login')
 
 
@@ -321,7 +291,6 @@ def remove_from_wishlist(request, pk, string):
     if string == 'wishlist':
         single_wishlist_product = Wishlist.objects.filter(
             buyer=buyer_obj).get(id=pk)
-        print(single_wishlist_product)
         single_wishlist_product.delete()
         return redirect('my_wishlist')
     else:
@@ -335,7 +304,6 @@ def remove_from_wishlist(request, pk, string):
 def add_to_cart(request, pk, string):
     if request.method == 'POST':
         try:
-        # if(1):
             buyer_obj = Buyer.objects.get(email=request.session['email'])
             single_product_obj = Product.objects.get(id=pk)
             try:
@@ -353,23 +321,19 @@ def add_to_cart(request, pk, string):
                 else:
                     return redirect('my_wishlist')
         except:
-        # else:
             return redirect('login')
     else:
-        print('goooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
         return redirect('product')
 
 
 def shoping_cart(request):
-    # try:
-    if (1):
+    try:
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         cart_objs = Cart.objects.filter(buyer=buyer_obj)
         if cart_objs:
             pass
         else:
             return render(request, 'shoping-cart.html',{'buyer_data':buyer_obj,'empty':True})
-        print(cart_objs)
         cart_product_price_list = []
         count = 0
         global total_price
@@ -378,10 +342,6 @@ def shoping_cart(request):
             cart_product_price_list.append(
                 float(item.product.price * item.quantity))
             total_price = total_price + (float(item.product.price) * item.quantity)
-        print(cart_product_price_list)
-        print('-------------------------')
-        print(list(zip(cart_objs, cart_product_price_list)))
-
         my_list = list(zip(cart_objs, cart_product_price_list))
         currency = 'INR'
         amount = float(total_price*100)  - 1
@@ -405,27 +365,20 @@ def shoping_cart(request):
         context['callback_url'] = callback_url
         context.update(
             {'buyer_data': buyer_obj, 'my_list': my_list, 'total_price': total_price-1})
-        print(total_price)
         return render(request, 'shoping-cart.html', context=context)
-
-        # return render(request, 'shoping-cart.html', {'buyer_data': buyer_obj, 'my_list': list(zip(cart_objs, cart_product_price_list)), 'total_price': total_price})
-    # except:
-    else:
+    except:
         return redirect('login')
 
 
 def remove_from_cart(request, pk):
-    # try:
-    if (1):
+    try:       
         buyer_obj = Buyer.objects.get(email=request.session['email'])
         single_product = Product.objects.get(id=pk)
         cart_obj = Cart.objects.filter(
             buyer=buyer_obj).get(product=single_product)
-        print(cart_obj)
         cart_obj.delete()
         return redirect('shoping_cart')
-    # except:
-    else:
+    except:
         return redirect('login')
 
 
@@ -485,7 +438,6 @@ def paymenthandler(request):
                         )
 
                         # i.product.product_stock = i.product.product_stock - i.quantity
-                    print('payment done!!!!!!!!!!!!!!!!!!!!!!!!1')
                     cart_objs.delete()
                 
                     # render success page on successful caputre of payment

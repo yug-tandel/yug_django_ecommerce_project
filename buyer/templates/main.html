@@ -91,31 +91,31 @@
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
+							<li class=" {% if request.path == '/' %} active-menu {% endif %}">
 								<a href="{% url 'index' %}">Home</a>
 								<ul class="sub-menu">
 									<li><a href="{% url 'index' %}">Homepage 1</a></li>
 								</ul>
 							</li>
 
-							<li>
+							<li class=" {% if request.path == '/product/' %} active-menu {% endif %}">
 								
                                 <a href="{% url 'product' %}">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
+							<li class="label1 {% if request.path == '/shoping_cart' %} active-menu {% endif %}" data-label1="hot" >
 								<a href="{% url 'shoping_cart' %}">Features</a>
 							</li>
 
-							<li>
+							<li class=" {% if request.path == '/blog/' %} active-menu {% endif %}" >
 								<a href="{% url 'blog' %}">Blog</a>
 							</li>
 
-							<li>
+							<li class=" {% if request.path == '/about/' %} active-menu {% endif %}" >
 								<a href="{% url 'about' %}">About</a>
 							</li>
 
-							<li>
+							<li class=" {% if request.path == '/contact/' %} active-menu {% endif %}" >
 								<a href="{% url 'contact' %}">Contact</a>
 							</li>
 						</ul>
